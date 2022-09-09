@@ -57,6 +57,10 @@ def train(training_environment):
     pytorch_ddp_enabled = training_environment.additional_framework_parameters.get(
         LAUNCH_PYTORCH_DDP_ENV_NAME, False
     )
+    logger.info('pytorch_ddp_enabled is ')
+    logger.info(pytorch_ddp_enabled)
+    logger.info('additional_framework_parameters are ')
+    logger.info(training_environment.additional_framework_parameters)
 
     smdataparallel_enabled = training_environment.additional_framework_parameters.get(
         LAUNCH_SMDATAPARALLEL_ENV_NAME, False
@@ -69,6 +73,7 @@ def train(training_environment):
     runner_type = runner.ProcessRunnerType
 
     if training_environment.current_instance_group in training_environment.distribution_instance_groups:
+        
         if mpi_enabled:
             runner_type = runner.MPIRunnerType
         elif pytorch_ddp_enabled:

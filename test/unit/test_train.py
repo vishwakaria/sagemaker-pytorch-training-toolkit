@@ -108,6 +108,8 @@ def test_train_smdataparallel(run_module, training_env):
 @patch('socket.gethostbyname', MagicMock())
 def test_train_pytorch_ddp(run_module, training_env):
     training_env.additional_framework_parameters["sagemaker_pytorch_ddp_enabled"] = True
+    training_env.additional_framework_parameters["sagemaker_accl_enabled"] = True
+    training_env.additional_framework_parameters["sagemaker_instance_type"] = "ml.p4d.24xlarge"
 
     train(training_env)
     run_module.assert_called_with(
